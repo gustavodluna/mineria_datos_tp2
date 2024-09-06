@@ -1,7 +1,11 @@
 
 library(readr)
+library(tidyverse)
 
-detroit-> readr::read_csv(file="detroit.csv")
+file->"https://raw.githubusercontent.com/gustavodluna/mineria_datos_tp2/main/detroit.csv"
 
-asociaciones <- readr::read_csv(file =
-                                  "https://raw.githubusercontent.com/gastonbecerra/curso-intro-r/main/data/asociaciones.csv")
+detroit<-readr::read_csv(file=file)
+
+dim(detroit)
+
+head(detroit, n = 5) 
