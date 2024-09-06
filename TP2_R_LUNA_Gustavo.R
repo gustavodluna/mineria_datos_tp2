@@ -179,3 +179,65 @@ ols_vif_tol(model_detroit)
 #Tolerancia <0.1 que nos indicaría que estamos en presencia de un fenómeno 
 #de multicolinealidad.
 
+
+
+##################################################################################
+### Consigna 3: Qué información da el coeficiente de determinación?
+#El coeficiente de determinación es la proporción de la variación en y que se 
+#explica por la línea de regresión. Veamoslo en nuestro ejercicio, recordamos la 
+#formula de trabajo: lm(H~ LIC + FTP, data=detroit)               
+##################################################################################
+
+summary(model_detroit)
+
+# Tenemos un R2=0.9905 y un valor ajustado de R2A=0.9886. El primer valor es el coeficiente
+#de determinación múltiple, nos indica qué tan bien se ajusta la ecuación de regresión 
+#múltiple a los datos muestrales. El Coeficiente de determinación ajustado, modifica este 
+#valor para tener en cuenta el número de variables y el tamaño de la muestra. Esto resulta
+#relevante ya que el Coeficiente de determinación múltiple R2 aumenta a medida que se 
+#incluyan más variables, incluso aunque éstas sean simple ruido estadístico sin correlación.
+#En síntesis, con un R2A=0.9886, el modelo explica el 98.86% de la variación de la 
+#variable respuesta H.
+
+
+
+
+##################################################################################
+###Consigna 4: Cuáles son los supuestos necesarios para definir la prueba inferencial 
+#de los estimadores de los parámeros?              
+##################################################################################
+
+# Los modelos de regresión lineal tienen los siguientes requisitos:
+
+#• La muestra de datos es una muestra aleatoria de datos cuantitativos
+
+#• Los datos tienen una distribución Normal. Es decir, para cada valor fijo de x
+
+#los valores correspondientes de y 
+#•• siguen una distribución Normal 
+#•• Linearidad, debe 
+#haber correlación lineal entre las variables. Se puede comprobar con un
+#análisis exploratorio de la correlación con el Coeficiente R
+
+#• y gráficos de dispersión, como se vió al inicio del ejercicio en el análisis exploratorio.
+#También se puede comprobar con un gráfico de residuos.
+
+#• Homocedasticidad, es decir constancia o igualdad de varianzas. Se puede comprobar
+#con un gráfico de residuos que se verá más adelante.
+
+#• Independencia, las muestras deben ser independientes. Se puede comprobar
+#mediante el análisis de los residuos.
+
+#• Ausencia de valores atípicos
+
+
+
+
+##################################################################################
+###Consigna 5: Analizar la bondad del ajuste del modelo obtenido, comentando los indicadores
+#y/o test que considera
+##################################################################################
+
+
+
+
