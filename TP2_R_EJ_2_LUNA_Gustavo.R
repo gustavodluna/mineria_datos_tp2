@@ -59,3 +59,21 @@ pairs(x=datos[,c("pata","abdomen","organo_sexual")],
 #especies.
 
 
+library(scatterplot3d)
+
+scatterplot3d(x = datos$pata,
+              y = datos$abdomen,
+              z = datos$organo_sexual,
+              color = c("firebrick", "green3")[datos$especie],
+              pch = 19,
+              grid = TRUE,
+              xlab = "pata",
+              ylab = "abdomen",
+              zlab = "organo sexual",
+              angle = 65,
+              cex.axis = 0.6
+              )
+legend("topleft",
+       bty="n",cex=0.8,title = "Especie",
+       c("a","b"),fill=c("firebrick","green3"))
+
