@@ -1,0 +1,24 @@
+# Utilizar el método de selección automática Stepwise sobre un modelo que incluya todas las 
+# variables, utilizando las probabilidades de entrada y salida del modelo sugeridas en la 
+# consigna (Entrada 0.10 y Salida 0.15)
+(stepwise - ols_step_both_p(model_detroit, pent = 0.10, prem= 0.15))
+
+# Ejecutar la selección de mejor subconjunto
+best_subset - ols_step_best_subset(model_detroit)
+
+# Imprimir los resultados
+print(best_subset)
+
+# Extraer la información necesaria
+metrics_df - stepwise$metrics
+
+# Crear el data frame con la información correcta
+step_sum - data.frame(
+  Step = metrics_df$step,
+  Variable = metrics_df$variable,
+  Method = metrics_df$method,
+  Adj_R2 = metrics_df$adj_r2
+)
+
+# Verificar el data frame creado
+print(step_sum)
