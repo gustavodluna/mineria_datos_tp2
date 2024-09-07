@@ -73,7 +73,67 @@ scatterplot3d(x = datos$pata,
               angle = 65,
               cex.axis = 0.6
               )
+
 legend("topleft",
        bty="n",cex=0.8,title = "Especie",
        c("a","b"),fill=c("firebrick","green3"))
 
+# La representación de las tres variables de forma simultánea parece indicar que las dos
+#especies sí están bastante separadas en el espacio 3D generado.
+
+# Prior probabilities
+
+# Como no se dispone de información sobre la abundancia relativa de las especies a nivel
+#poblacional, se considera como probabilidad previa de cada especie el número de
+#observaciones de la especie entre el número de observaciones totales.
+
+# Pia=Pib=10/20=0.5
+
+# Homogeneidad de Varianza
+
+# De entre los diferentes test que contrastan la homogeneidad de varianza, el más
+#recomendable cuando solo hay un predictor, dado que se asume que se distribuye de forma
+#normal, es el test de Barttlet. Cuando se emplean múltiples predictores, se tiene que
+#contrastar que la matriz de covarianzas (∑) es constante en todos los grupos,
+#siendo recomendable comprobar también la homogeneidad de varianza para 
+#cada predictor a nivel individual.
+
+
+# El test Box M fue desarrollado por el matemático Box (1949) como una extensión del 
+#test de Barttlet para escenarios multivariante y permite contrastar la igualdad de 
+#matrices entre grupos. El test Box M es muy sensible a violaciones de la normalidad 
+#multivariante, por lo que esta debe ser contrastada con anterioridad. Ocurre con 
+#frecuencia, que el resultado de un test Box M resulta significativo debido a la falta
+#de distribución normal multivariante en lugar de por falta de homogeneidad en las 
+#matrices de covarianza. Dada la sensibilidad de este test se recomienda emplear un 
+#límite de significancia de 0.001.
+
+
+# Distribución de los predictores de forma individual:
+
+#Representacion mediante Histograma de cada variable para cada especie
+
+par(mfcol=c(2,3))
+for (k in 2:4){
+  j0 <- names(datos)[k]
+  x0<-seq(min(datos[,k]),max(datos[,k]),le=50)
+  for (i in 1:2){
+    i0<-levels(datos$especie)[i]
+    x<- datos[datos$especie==i0,j0]
+    hist(x,proba=T,col=grey(0.8),main=paste("especie",i0),xlab=j0)
+    lines(x0,dnorm(x0,mean(x),sd(x)),col="red",lwd=2)
+  }
+}
+
+# Representación de cuantiles normales de cada variable para cada especie 
+
+for (k in 2:4){
+  j0 <- names(datos)[k]
+  x0 <- seq(min(datos[,k]),max(datos[,k]),le=50)
+  for (i in 1:2){
+    i0<- levels(datos$especie)[i]
+    x<-datos[datos$especie==i0,j0]
+    qqnorm(x,main=paste("especie",i0,j0),pch=19,col=i+1)
+    qqline(x)
+  }
+}
