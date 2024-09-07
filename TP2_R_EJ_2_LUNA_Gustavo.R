@@ -1,3 +1,10 @@
+# Un equipo de biólogos quiere generar un modelo estadístico que permita identificar a que
+#especie (a o b) pertenece un determinado insecto. Para ello se han medido tres variables
+#(longitud de las patas, diámetro del abdomen y diámetro del órgano sexual) en 10 individuos
+#de cada una de las dos especies.
+
+# Obtención de los datos de entrenamiento
+
 input <- ("
 especie pata abdomen organo_sexual 
 a 191 131 53
@@ -27,4 +34,28 @@ datos$especie <-as.factor(datos$especie)
 
 library(ggplot2)
 library(ggpubr)
+
+p1<- ggplot(data=datos, aes(x=pata,fill=especie)) +
+  geom_histogram(position="identity",alpha=0.5)
+
+p2<- ggplot(data=datos, aes(x=abdomen,fill=especie)) +
+  geom_histogram(position="identity",alpha=0.5)
+
+p3<- ggplot(data=datos, aes(x=organo_sexual,fill=especie)) +
+  geom_histogram(position="identity",alpha=0.5)
+
+ggarrange(p1,p2,p3,nrow = 3,common.legend = TRUE)
+
+
+#A nivel individual, la longitud de la pata parece ser la variable que más se 
+#diferencia entre especies (menor solapamiento entre poblaciones)
+
+pairs(x=datos[,c("pata","abdomen","organo_sexual")],
+      col=c("firebrick","green3")[datos$especie],pch=19
+      )
+
+
+# El par de variables abdomen-pata y el par pata-organo_sexual parecen separar bien las dos
+#especies.
+
 
