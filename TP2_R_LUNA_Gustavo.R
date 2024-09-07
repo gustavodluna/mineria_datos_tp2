@@ -234,10 +234,91 @@ summary(model_detroit)
 
 
 ##################################################################################
-###Consigna 5: Analizar la bondad del ajuste del modelo obtenido, comentando los indicadores
-#y/o test que considera
+###Consigna 5: Analizar la bondad del ajuste del modelo obtenido, comentando los 
+#indicadores y/o test que considera
+##################################################################################
+
+# En un modelo de Regresión Lineal Múltiple, la bondad del ajuste puede aproximarse a 
+#través de R2
+# En general, un modelo se ajusta bien a los datos a partir de la diferencia entre los 
+#valores observados y los valores predichos. Un R2 elevado, cercano a uno, implica 
+#el porcentaje de variabilidad explicado o determinado por el modelo. Esto es así 
+#a partir de la misma definición del coeficiente:
+#              SSR/SST  
+# SSR se llama suma de cuadrados de la regresión y refleja la cantidad de variación 
+#de los valores de y explicados por el modelo.
+# SST es la suma de cuadrados de y y refleja su variabilidad en torno a su media. 
+#Es decir, la variabilidad total.
+
+(stepwise <- ols_step_both_p(model_detroit,pent=0.10,prem=0.15,details = TRUE))
+
+#                                   ANOVA                                 
+#---------------------------------------------------------------------
+#                Sum of                                               
+#              Squares           DF    Mean Square     F         Sig. 
+#---------------------------------------------------------------------
+# Regression    2451.446         2       1225.723    519.119    0.0000 
+#Residual      23.612           10          2.361                      
+#Total         2475.058          12                                     
+#---------------------------------------------------------------------
+
+#SSR=2451.446
+
+#SST=2475.058
+
+#R²= SSR/SST  = 2451.446/2475.058 = 0.9905
+
+# Interpretación de R²:
+# *R² = 1: El modelo explica toda la variabilidad de la variable dependiente (ajuste perfecto).
+# *R² = 0: El modelo no explica ninguna variabilidad, es decir, no es mejor que 
+#simplemente predecir la media de la variable dependiente.
+# *0 < R² < 1: Indica la proporción de variabilidad explicada por el modelo.
+
+
+# En nuestro caso el valor de R² es 0.9905, lo cual es aproximadamente 1, se podria decir
+#el modelo explica toda la variabilidad de la variable dependiente (ajuste perfecto).
+
+
+
+
+
+##################################################################################
+###Consigna 6: Realizar un análisis de los residuos del modelo para evaluar el 
+#cumplimiento delos supuestos. Para esto, realizar gráficos de los residuos con 
+#el valor predicho.
 ##################################################################################
 
 
+# El gráfico de residuos nos permite constatar la homocedasticidad, linealidad y normalidad.
+#Se observará un gráfico de dispersión donde se reemplazan los valores de y
+#por el residual y−y^, entonces los puntos de la gráfica son (x,y−y^). Retomamos la 
+#ecuación de trabajo y graficamos:
+
+model_detroit$call
+
+ols_plot_resid_stud_fit(model_detroit,print_plot = TRUE)
+
+# Vemos que existen dos valores se encuentra fuera del rango (2;-2). El problema surge 
+#aquí al ver que los Residuos siguen un patrón determinado cuando idealmente no debería 
+#seguir ningún patrón obvio para confirmar que los datos muestrales seguirían un patrón 
+#de línea recta. Vemos que la gráfica no se ensancha, esto confirmaría la homocedasticidad.
 
 
+
+
+
+##################################################################################
+###Consigna 7: Analizar la colinealidad de las variables predictoras presentes en 
+#la ecuación.
+##################################################################################
+
+
+# La colinealidad ya ha sido analizada en el punto 2 para la elección del modelo.
+
+
+
+
+##################################################################################
+###Consigna 8: Analizar la presencia de observaciones atípicas y/o influyentes. 
+#Comentar y resolver según el caso.
+##################################################################################
