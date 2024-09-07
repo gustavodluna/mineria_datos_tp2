@@ -322,3 +322,52 @@ ols_plot_resid_stud_fit(model_detroit,print_plot = TRUE)
 ###Consigna 8: Analizar la presencia de observaciones atípicas y/o influyentes. 
 #Comentar y resolver según el caso.
 ##################################################################################
+
+# Continuamos con nuestro análisis haciendo un gráfico que detecta valores atípicos 
+#(outliers) y puntos influyentes (leverage)
+
+ols_plot_resid_lev(model_detroit,print_plot = TRUE)
+
+# Detectamos los casos 12 y 13 como puntos influyentes de nuestro modelo que podria
+#alterar la linea de regresion y por lo tanto los resultados. En este sentido,
+#hacemos un grafico de la Distancia de Cook para establecer la importancia de este
+#leverage.
+
+ols_plot_cooksd_bar(model_detroit,print_plot = TRUE)
+
+
+# Nuevamente, vemos que se repiten los casos representando outliers significativos. 
+#Cabe destacar tambien la poca cantidad de casos de la muestra para mantener estos
+#casos y este modelo.
+
+# Continuamos con un analisis de los graficos dfBetas que permitira observar la
+#influencia de los leverage sobre la estimacion de los parametros para las
+#variables predictoras.
+
+ols_plot_dfbetas(model_detroit,print_plot = TRUE)
+
+# Al parecer los casos 11 y 13 tendrian una influencia importante en la estimacion de
+#los parametros. Esto nos lleva a pensar que eliimnar dichos casos nos llevaria a 
+#sobreajuste inncesario. Por lo tanto, decidimos matener el modelo actual.
+
+# ECUACION
+#La ecuacion de regresion lineal seria:
+
+model_detroit$call
+
+# lm(formula = H ~ LIC + FTP, data = detroit)
+
+model_detroit$coefficients
+
+#(Intercept)          LIC          FTP 
+#-13.67287666   0.03997918   0.05465858
+
+###########################################
+### Y=-13.67 + 0.03998*LIC + 0.05466*FTP###
+###########################################
+
+# Las variables predictoras de H (Tasa de homicidios cada 100.000 habitantes) 
+#en nuestro modelo son LIC (Cantidad de licencias de portación de armas 
+#cada 100.000 habitantes) y FTP (Cantidad de policias full time cada 100.000 habitantes)
+
+
