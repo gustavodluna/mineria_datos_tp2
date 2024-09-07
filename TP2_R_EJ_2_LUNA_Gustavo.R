@@ -273,4 +273,51 @@ training_error<-mean(datos$especie!=predicciones$class)*100
 paste("training_error=",training_error,"%")
 ##[1] "training_error= 0 %"]
 
+# Empleando las mismas observaciones con las que se ha generado el modelo discriminante
+#(trainig data), la precisión de clasificación es del 100%. Evaluar un modelo con los mismos
+#datos con los que se ha creado suele resultar en estimaciones de la precisión demasiado
+#optimistas (training error muy bajo). Como se describe en el capítulo Validación de modelos
+#de regresión, la estimación del test error mediante validación cruzada es más adecuada para
+#obtener una evaluación realista del modelo.
+
+
+with(datos,{
+  s3d<-scatterplot3d(
+                    pata,abdomen,organo_sexual,
+                    color = c("firebrick","green3")[datos$especie],
+                    pch=19,
+                    grid = TRUE,
+                    xlab = "pata",
+                    ylab = "abdomen",
+                    zlab="organo_sexual",
+                    angle = 65,
+                    cex.axis = 0.6
+                    )
+  s3d.coords<-s3d$xyz.convert(pata,abdomen,organo_sexual)
+  #convierte coordenadas 3D en proyecciones 2D
+  
+  text(
+        s3d.coords$x, #coordenadas x
+        s3d.coords$y, #coordenadas y
+        labels=datos$especie, #texto
+        cex=0.8,
+        pos=4
+      )
+  legend(
+        "topleft",
+        bty = "n",
+        cex=0.8,
+        title = "Especie",
+        c("a","b"),
+        fill=c("firebrick","green3")
+        )
+})
+
+
+# La siguiente imagen muestra la representación de las observaciones, coloreadas por la
+#verdadera especie a la que pertenecen y acompañadas por una etiqueta con la especie que ha
+#predicho el LDA.
+
+
+
 
